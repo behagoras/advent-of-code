@@ -1,69 +1,55 @@
 // Too low 158840668273292
 // Too low 158840668273292
-import fs from 'node:fs/promises'; // async
+import fs from 'node:fs/promises';
+
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const __dirname = dirname(
-  fileURLToPath(import.meta.url),
-);
+function trimToTwelveDigits(digits: (number)[]): number[] {
+  let min = Math.min(...digits.filter(el => el !== null));
 
-
-
-
-
-function getCleanJoltage(slices: (number)[]): number[] {
-  let min = Math.min(...slices.filter(el => el !== null))
-
-  while (slices.length > 12) {
-    const nextMin = slices.indexOf(min)
-
-    slices.splice(nextMin, 1)
-    if(nextMin === 0) {
-      min++
-    }
+  while (digits.length > 12) {
+    const minIndex = digits.indexOf(min);
+    digits.splice(minIndex, 1);
+    if(minIndex === 0) min++;
   }
-  return slices
+
+  return digits;
 }
 
-const findStartingIndex = (bankNumbers: number[]): number => {
-  let left = 0, right = bankNumbers.length, currentIndex = 0;
+const findBestStartPosition = (digits: number[]): number => {
+  let left = 0, right = digits.length, currentIndex = 0;
 
-  while ((right - left) > 12 && currentIndex < bankNumbers.length) {
-    if (bankNumbers[currentIndex]! > bankNumbers[left]!) {
+  while ((right - left) > 12 && currentIndex < digits.length) {
+    if (digits[currentIndex]! > digits[left]!) {
       left = currentIndex;
     }
     else right--
     currentIndex++;
   }
 
-  return left
+  return left;
 }
 
+function calculateBankJoltage(bank: string): number {
+  if (!bank) return 0
 
-function getJoltage(bank: string): bigint {
-  if (!bank) return 0n
+  const digits = bank.split('').map(Number);
+  const startIndex = findBestStartPosition(digits);
+  const candidateDigits = digits.slice(startIndex);
+  const selectedDigits = trimToTwelveDigits(candidateDigits).join('');
 
-  const bankNumbers = bank.split('').map(Number)
-  const left = findStartingIndex(bankNumbers)
-  const numbersFromLeft = bankNumbers.slice(left)
-  const clean = getCleanJoltage(numbersFromLeft)
-    .join('')
-
-  return BigInt(clean)
+  return Number(selectedDigits);
 }
 
-function part2  (banks: string[]): bigint {
+function calculateTotalJoltagePart2  (banks: string[]): number {
   return banks
-    .map(getJoltage)
-    .reduce((acc, el) => acc + el, 0n)
+    .map(calculateBankJoltage)
+    .reduce((sum, joltage) => sum + joltage, 0);
 }
-const inputFile = path.resolve(__dirname, 'input.txt')
+
+const inputFile = path.resolve(__dirname, 'input.txt');
 const data = (await fs.readFile(inputFile, 'utf8')).split('\n');
-
-
-
-console.log(part2(data))
-
-
+console.log(calculateTotalJoltagePart2(data));
 // console.log('removeMin(data)', removeMin('811111111111119'))

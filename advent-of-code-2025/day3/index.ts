@@ -1,5 +1,5 @@
 // Too low 158840668273292
-
+// Too low 158840668273292
 import fs from 'node:fs/promises'; // async
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -17,10 +17,11 @@ function getCleanJoltage(slices: (number)[]): number[] {
 
   while (slices.length > 12) {
     const nextMin = slices.indexOf(min)
-    if(nextMin === 0) {
-      min = Math.min(...slices.filter(el => el !== null))
-    }
+
     slices.splice(nextMin, 1)
+    if(nextMin === 0) {
+      min++
+    }
   }
   return slices
 }
@@ -40,8 +41,8 @@ const findStartingIndex = (bankNumbers: number[]): number => {
 }
 
 
-function getJoltage(bank: string): number {
-  if (!bank) return 0
+function getJoltage(bank: string): bigint {
+  if (!bank) return 0n
 
   const bankNumbers = bank.split('').map(Number)
   const left = findStartingIndex(bankNumbers)
@@ -49,15 +50,15 @@ function getJoltage(bank: string): number {
   const clean = getCleanJoltage(numbersFromLeft)
     .join('')
 
-  return Number(clean)
+  return BigInt(clean)
 }
 
-function part2  (banks: string[]) {
+function part2  (banks: string[]): bigint {
   return banks
     .map(getJoltage)
-    .reduce((acc, el) => acc + el, 0)
+    .reduce((acc, el) => acc + el, 0n)
 }
-const inputFile = path.resolve(__dirname, 'sample-input.txt')
+const inputFile = path.resolve(__dirname, 'input.txt')
 const data = (await fs.readFile(inputFile, 'utf8')).split('\n');
 
 

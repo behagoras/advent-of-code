@@ -17,6 +17,9 @@ function getCleanJoltage(slices: (number)[]): number[] {
 
   while (slices.length > 12) {
     const nextMin = slices.indexOf(min)
+    if(nextMin === 0) {
+      min = Math.min(...slices.filter(el => el !== null))
+    }
     slices.splice(nextMin, 1)
   }
   return slices

@@ -5,23 +5,25 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const rollsChar = "@"
 
-function removeCoordinates(coordinatesToRemove: [number, number][], grid: string[],) {
-  const setCharAt = (str: string, index: number, char: string) =>
+
+
+function removeCoordinates(grid: string[], coordinatesToRemove: [number, number][]): string[] {
+  const setCharAt = (str: string, index: number, char: string): string =>
     index < 0 || index >= str.length
       ? str
       : str.substring(0, index) + char + str.substring(index + 1)
 
-  for (let [x, y] of coordinatesToRemove) grid[y] = setCharAt(grid[y]!, x, ".")
+  let newGrid = [...grid]
+  for (let [x, y] of coordinatesToRemove) newGrid[y] = setCharAt(newGrid[y]!, x, ".")
 
-  return grid
+  return newGrid
 }
 
-function countMatchesAndUpdateCoordinates(
+function countNeighbors(
   grid: string[],
   [x, y]: [number, number],
-  coordinatesToRemove: [number, number][]
-) {
-  let count = 0, repeated = 0
+): [count: number, shouldRemove: boolean] {
+  let repeated = 0
   const coordinates = [
     [x - 1, y - 1],
     [x - 1, y],
@@ -41,15 +43,16 @@ function countMatchesAndUpdateCoordinates(
     if (currentElement === rollsChar) repeated++
   }
 
-  if (repeated < 4 && grid?.[y]?.[x]) {
-    coordinatesToRemove.push([x, y])
-    count++
-  }
+  const shouldRemove = repeated < 4 && grid?.[y]?.[x] !== undefined
+  const count = shouldRemove ? 1 : 0
 
-  return count
+  return [count, shouldRemove]
 }
 
-function getCounts(grid: string[]): [[number, number][], number] {
+function getCounts(grid: string[]): [
+  [number, number][],
+  number
+] {
   const width = grid[0]!.length
   let count = 0
   let coordinatesToRemove: [number, number][] = []
@@ -57,27 +60,28 @@ function getCounts(grid: string[]): [[number, number][], number] {
     for (let x = 0; x < width; x++) {
       if (grid[y]![x] !== rollsChar) continue
 
-      count += countMatchesAndUpdateCoordinates(grid, [x, y], coordinatesToRemove)
+      const [neighborCount, shouldRemove] = countNeighbors(grid, [x, y])
+
+      if (shouldRemove) coordinatesToRemove.push([x, y])
+
+      count += neighborCount
     }
   }
   return [coordinatesToRemove, count]
 }
 
-// Day 04 part 2, example output ->
 function part2(grid: string[]): number {
   let count = 0
-  let first = true
-  let coordinatesToRemove = [] as [number, number][]
+  let currentGrid = grid
 
-  while (coordinatesToRemove.length || first) {
-    first = false
+  while (true) {
+    const [coordinatesToRemove, roundCount] = getCounts(currentGrid)
+    if (coordinatesToRemove.length === 0) break
 
-    removeCoordinates(coordinatesToRemove, grid)
-
-    let _count: number
-    [coordinatesToRemove, _count] = getCounts(grid)
-    count += _count
+    count += roundCount
+    currentGrid = removeCoordinates(currentGrid, coordinatesToRemove)
   }
+
   return count
 }
 

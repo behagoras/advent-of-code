@@ -1,55 +1,36 @@
-// Too low 158840668273292
-// Too low 158840668273292
 import fs from 'node:fs/promises';
-
 import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-function trimToTwelveDigits(digits: (number)[]): number[] {
-  let min = Math.min(...digits.filter(el => el !== null));
+function greedyBankJoltageCalculation(_bank: string): number[] {
+  const bank = _bank.split('').map(Number)
+  const positions: number[] = []
+  for (let i = 0; i < 12; i++) {
+    // Calculate start && end
+    const start = positions.length ? (positions.at(-1)! + 1) : 0
+    let end: number | undefined = ((11 - i) * -1)
+    if (!end) end = undefined
 
-  while (digits.length > 12) {
-    const minIndex = digits.indexOf(min);
-    digits.splice(minIndex, 1);
-    if(minIndex === 0) min++;
+    // Get index to push
+    const slice = bank.slice(start, end)
+    const max = Math.max(...slice)
+    const index = slice.indexOf(max) + start
+
+    // Push index
+    positions.push(index)
   }
 
-  return digits;
+  return positions.map(position => bank[position]!)
 }
 
-const findBestStartPosition = (digits: number[]): number => {
-  let left = 0, right = digits.length, currentIndex = 0;
-
-  while ((right - left) > 12 && currentIndex < digits.length) {
-    if (digits[currentIndex]! > digits[left]!) {
-      left = currentIndex;
-    }
-    else right--
-    currentIndex++;
-  }
-
-  return left;
-}
-
-function calculateBankJoltage(bank: string): number {
-  if (!bank) return 0
-
-  const digits = bank.split('').map(Number);
-  const startIndex = findBestStartPosition(digits);
-  const candidateDigits = digits.slice(startIndex);
-  const selectedDigits = trimToTwelveDigits(candidateDigits).join('');
-
-  return Number(selectedDigits);
-}
-
-function calculateTotalJoltagePart2  (banks: string[]): number {
-  return banks
-    .map(calculateBankJoltage)
-    .reduce((sum, joltage) => sum + joltage, 0);
-}
+const part2 = (banks: string[]): number => banks
+  .filter(Boolean)
+  .map(greedyBankJoltageCalculation)
+  .map(el => +el.join(''))
+  .reduce((sum, joltage) => sum + joltage, 0);
 
 const inputFile = path.resolve(__dirname, 'input.txt');
 const data = (await fs.readFile(inputFile, 'utf8')).split('\n');
-console.log(calculateTotalJoltagePart2(data));
-// console.log('removeMin(data)', removeMin('811111111111119'))
+console.log(part2(data));
+// Result -> 168794698570517

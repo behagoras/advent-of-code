@@ -5,8 +5,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const rollsChar = "@"
 
-
-
 function removeCoordinates(grid: string[], coordinatesToRemove: [number, number][]): string[] {
   const setCharAt = (str: string, index: number, char: string): string =>
     index < 0 || index >= str.length
@@ -19,40 +17,40 @@ function removeCoordinates(grid: string[], coordinatesToRemove: [number, number]
   return newGrid
 }
 
-function countNeighbors(
-  grid: string[],
-  [x, y]: [number, number],
-): [count: number, shouldRemove: boolean] {
-  let repeated = 0
-  const coordinates = [
-    [x - 1, y - 1],
-    [x - 1, y],
-    [x - 1, y + 1],
-    [x, y - 1],
-    // [x, y],
-    [x, y + 1],
-    [x + 1, y - 1],
-    [x + 1, y],
-    [x + 1, y + 1],
-  ]
-
-  for (let [x, y] of coordinates) {
-    if (repeated >= 4) break
-
-    const currentElement = grid?.[y!]?.[x!] ?? '.'
-    if (currentElement === rollsChar) repeated++
-  }
-
-  const shouldRemove = repeated < 4 && grid?.[y]?.[x] !== undefined
-  const count = shouldRemove ? 1 : 0
-
-  return [count, shouldRemove]
-}
-
 function getCounts(grid: string[]): [
   [number, number][],
   number
 ] {
+  const countNeighbors = (
+    grid: string[],
+    [x, y]: [number, number],
+  ): [count: number, shouldRemove: boolean] {
+    let repeated = 0
+    const coordinates = [
+      [x - 1, y - 1],
+      [x - 1, y],
+      [x - 1, y + 1],
+      [x, y - 1],
+      // [x, y],
+      [x, y + 1],
+      [x + 1, y - 1],
+      [x + 1, y],
+      [x + 1, y + 1],
+    ]
+
+    for (let [x, y] of coordinates) {
+      if (repeated >= 4) break
+
+      const currentElement = grid?.[y!]?.[x!] ?? '.'
+      if (currentElement === rollsChar) repeated++
+    }
+
+    const shouldRemove = repeated < 4 && grid?.[y]?.[x] !== undefined
+    const count = shouldRemove ? 1 : 0
+
+    return [count, shouldRemove]
+  }
+
   const width = grid[0]!.length
   let count = 0
   let coordinatesToRemove: [number, number][] = []

@@ -5,9 +5,9 @@ const fs = require('node:fs');
 const getRanges = (ranges) => ranges
   .split(',')
   .map(range => range.split('-')
-  .map(el => +el))
+    .map(el => +el))
 
-const getNumbersFromRangeInclusive = (range) => 
+const getNumbersFromRangeInclusive = (range) =>
   new Array(Math.max(...range) - Math.min(...range) + 1)
     .fill(null)
     .map((_, index) => Math.min(...range) + index)

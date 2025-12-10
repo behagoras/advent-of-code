@@ -72,13 +72,15 @@ function part2(grid: string[]): number {
   let count = 0
   let currentGrid = grid
 
-  while (true) {
-    const [coordinatesToRemove, roundCount] = getCounts(currentGrid)
-    if (coordinatesToRemove.length === 0) break
+  let coordinatesToRemove: [number, number][] = []
+  do {
+    const countsResult = getCounts(currentGrid)
 
-    count += roundCount
+    coordinatesToRemove = countsResult[0]
+    count +=  countsResult[1]
+
     currentGrid = removeCoordinates(currentGrid, coordinatesToRemove)
-  }
+  } while (coordinatesToRemove.length)
 
   return count
 }

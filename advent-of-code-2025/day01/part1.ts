@@ -1,6 +1,10 @@
-const fs = require('node:fs');
+import fs from 'node:fs'
+import path, { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
-fs.readFile('day1/input.txt', 'utf8', (err, data) => {
+const inputFile = path.resolve(__dirname, 'input.txt')
+fs.readFile(inputFile, 'utf8', (err, data) => {
   if (err) {
     console.error('Error reading file:', err);
     return;

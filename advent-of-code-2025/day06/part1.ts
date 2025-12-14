@@ -16,6 +16,8 @@ const part1 = (input: string): number[] => {
   const operators = data.at(-1)?.filter(Boolean)
   const grid = data.slice(0, -1)
 
+
+
   const result = operators?.map((operator, column) => {
     let subtotal = operator === '+' ? 0 : 1
     for (const rowElement of grid) {

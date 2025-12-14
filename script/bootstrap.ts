@@ -32,7 +32,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Day ${day} part 1, example output ->
-const part1 = (input: string[]) => {
+const part1 = (sample-input: string[]) => {
 
 }
 

@@ -5,7 +5,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Day 06 part 1, example output ->
 const part2 = (input: string): number => {
-  let lines = input.split('\n')
+  const lines = input.split('\n')
   const width = lines[0].length
 
   let operator: "+" | "*" = "+"

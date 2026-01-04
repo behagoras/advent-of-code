@@ -5,7 +5,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 let splits = 0
 
-
 function fillBeam(lines: string[][], startRow: number, col: number) {
   let row = startRow + 1;
   while (lines?.[row]?.[col] === '.' && row < lines.length) {
@@ -23,7 +22,7 @@ function splitBeam(lines: string[][], beamRow: number, beamCol: number) {
 
 // Day 07 part 1, example output ->
 const part1 = (l: string[]) => {
-  let lines = l.map(el => el.split(''))
+  const lines = l.map(el => el.split(''))
   const col = lines[0].findIndex(el => el == 'S')
   fillBeam(lines, 0, col)
   // console.log(JSON.stringify(lines.map(el => el.join('')), null, 2))

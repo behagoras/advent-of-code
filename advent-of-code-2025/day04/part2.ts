@@ -11,8 +11,8 @@ function removeCoordinates(grid: string[], coordinatesToRemove: [number, number]
       ? str
       : str.substring(0, index) + char + str.substring(index + 1)
 
-  let newGrid = [...grid]
-  for (let [x, y] of coordinatesToRemove) newGrid[y] = setCharAt(newGrid[y]!, x, ".")
+  const newGrid = [...grid]
+  for (const [x, y] of coordinatesToRemove) newGrid[y] = setCharAt(newGrid[y]!, x, ".")
 
   return newGrid
 }
@@ -23,8 +23,8 @@ function getCounts(grid: string[]): [
 ] {
   const countNeighbors = (
     grid: string[],
-    [x, y]: [number, number],
-  ): [count: number, shouldRemove: boolean] {
+    [x, y]: [number, number]
+  ): [count: number, shouldRemove: boolean] => {
     let repeated = 0
     const coordinates = [
       [x - 1, y - 1],
@@ -38,7 +38,7 @@ function getCounts(grid: string[]): [
       [x + 1, y + 1],
     ]
 
-    for (let [x, y] of coordinates) {
+    for (const [x, y] of coordinates) {
       if (repeated >= 4) break
 
       const currentElement = grid?.[y!]?.[x!] ?? '.'
@@ -53,7 +53,7 @@ function getCounts(grid: string[]): [
 
   const width = grid[0]!.length
   let count = 0
-  let coordinatesToRemove: [number, number][] = []
+  const coordinatesToRemove: [number, number][] = []
   for (let y = 0; y < grid.length; y++) {
     for (let x = 0; x < width; x++) {
       if (grid[y]![x] !== rollsChar) continue

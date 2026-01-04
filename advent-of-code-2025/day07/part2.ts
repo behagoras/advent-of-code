@@ -5,7 +5,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const memo = new Map<string, number>();
 
-
 function countTimelinesFrom(lines: string[], startRow: number, col: number): number {
   const key = `${startRow},${col}`;
   if (memo.has(key)) return memo.get(key)!

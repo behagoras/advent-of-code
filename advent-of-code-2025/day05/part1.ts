@@ -3,9 +3,8 @@ import path, { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-
 function isIdValid(ranges: [number, number][], id: number) {
-  for (let [from, to] of ranges) {
+  for (const [from, to] of ranges) {
     if (id >= from && id <= to) return true;
   }
 }

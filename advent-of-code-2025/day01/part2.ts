@@ -28,7 +28,7 @@ function countZerosBetween(dial: number, newDial: number) {
 function guessPassword(data: string) {
   let result = 0
   let dial = 50
-  for (let step of data.split('\n')) {
+  for (const step of data.split('\n')) {
     const direction = step.startsWith('L') ? -1 : 1
     const movement = +step.substring(1,) * direction
     const newDial = (dial + movement)

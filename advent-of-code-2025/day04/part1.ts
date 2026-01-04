@@ -28,7 +28,7 @@ const part1 = (grid: string[]) : number => {
         [x + 1, y + 1],
       ]
 
-      for (let coordinate of coordinates) {
+      for (const coordinate of coordinates) {
         const [x2, y2] = coordinate
         if (repeated >= 4) break
         const current = grid?.[y2!]?.[x2!] ?? '.'

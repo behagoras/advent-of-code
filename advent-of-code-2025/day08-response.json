@@ -1,0 +1,105 @@
+{
+  "connections": [
+    {
+      "coordinate1": "162,817,812",
+      "coordinate2": "425,690,689",
+      "euclides": 316.90219311326956
+    },
+    {
+      "coordinate1": "57,618,57",
+      "coordinate2": "466,668,158",
+      "euclides": 424.24285497813634
+    },
+    {
+      "coordinate1": "906,360,560",
+      "coordinate2": "805,96,715",
+      "euclides": 322.36935338211043
+    },
+    {
+      "coordinate1": "592,479,940",
+      "coordinate2": "425,690,689",
+      "euclides": 367.9823365326113
+    },
+    {
+      "coordinate1": "352,342,300",
+      "coordinate2": "542,29,236",
+      "euclides": 371.70552861102294
+    },
+    {
+      "coordinate1": "352,342,300",
+      "coordinate2": "466,668,158",
+      "euclides": 373.41130138226936
+    },
+    {
+      "coordinate1": "352,342,300",
+      "coordinate2": "542,29,236",
+      "euclides": 371.70552861102294
+    },
+    {
+      "coordinate1": "162,817,812",
+      "coordinate2": "431,825,988",
+      "euclides": 321.560258738545
+    },
+    {
+      "coordinate1": "906,360,560",
+      "coordinate2": "739,650,466",
+      "euclides": 347.59890678769403
+    },
+    {
+      "coordinate1": "52,470,668",
+      "coordinate2": "117,168,530",
+      "euclides": 338.33858780813046
+    },
+    {
+      "coordinate1": "216,146,977",
+      "coordinate2": "117,168,530",
+      "euclides": 458.360120429341
+    },
+    {
+      "coordinate1": "819,987,18",
+      "coordinate2": "941,993,340",
+      "euclides": 344.3893145845266
+    },
+    {
+      "coordinate1": "52,470,668",
+      "coordinate2": "117,168,530",
+      "euclides": 338.33858780813046
+    },
+    {
+      "coordinate1": "906,360,560",
+      "coordinate2": "805,96,715",
+      "euclides": 322.36935338211043
+    },
+    {
+      "coordinate1": "346,949,466",
+      "coordinate2": "425,690,689",
+      "euclides": 350.786259708102
+    },
+    {
+      "coordinate1": "819,987,18",
+      "coordinate2": "970,615,88",
+      "euclides": 407.53527454687895
+    },
+    {
+      "coordinate1": "819,987,18",
+      "coordinate2": "941,993,340",
+      "euclides": 344.3893145845266
+    },
+    {
+      "coordinate1": "862,61,35",
+      "coordinate2": "984,92,344",
+      "euclides": 333.6555109690233
+    },
+    {
+      "coordinate1": "862,61,35",
+      "coordinate2": "984,92,344",
+      "euclides": 333.6555109690233
+    },
+    {
+      "coordinate1": "162,817,812",
+      "coordinate2": "425,690,689",
+      "euclides": 316.90219311326956
+    }
+  ],
+  "length": 20
+}

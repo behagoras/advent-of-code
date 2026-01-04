@@ -4,8 +4,8 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // Day 12 part 1, example output ->
-const part1 = (sample-input: string[]) => {
-
+const part1 = (_input: string[]) => {
+  return 0
 }
 
 const inputFile = path.resolve(__dirname, 'input.txt');
